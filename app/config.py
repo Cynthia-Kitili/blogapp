@@ -6,13 +6,13 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://cynthia:gitz254@localhost/blog'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get("SECRET_KEY")
+    SECRET_KEY = "gitz254"
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+    MAIL_USERNAME = 'nyambucindy0@gmail.com'
+    MAIL_PASSWORD = 'tuit1436'
     SUBJECT_PREFIX = 'BLOG'
     SENDER_EMAIL = 'nyambucindy0@gmail.com'
 

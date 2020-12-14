@@ -6,16 +6,16 @@ from flask_login import current_user
 from app.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=2,max=20)])
-    email = StringField('Email',validators=[DataRequired()])
-    password = PasswordField('Password',validators=[DataRequired()],)
+    username = StringField('Enter Username:',validators=[DataRequired(), Length(min=2,max=20)])
+    email = StringField('Enter Email:',validators=[DataRequired()])
+    password = PasswordField('Enter Password:',validators=[DataRequired()],)
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user: 
-            raise ValidationError('That username is taken.Please choose a different one.')
+            raise ValidationError('Invalid Username')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -54,3 +54,8 @@ class RequestResetForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user is None: 
                 raise ValidationError('Their is no account with that email you must register first.')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',validators=[DataRequired()],)
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

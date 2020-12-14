@@ -11,3 +11,7 @@ class UpdateProfile(FlaskForm):
 class PitchForm(FlaskForm):
     content = TextAreaField('Your pitch')
     submit = SubmitField('post')    
+
+class CommentForm(FlaskForm):
+    comment_id = TextAreaField('WRITE COMMENT')
+    submit = SubmitField('SUBMIT')        

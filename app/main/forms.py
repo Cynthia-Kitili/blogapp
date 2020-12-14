@@ -7,3 +7,7 @@ from ..models import User
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+class PitchForm(FlaskForm):
+    content = TextAreaField('Your pitch')
+    submit = SubmitField('post')    

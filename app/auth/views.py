@@ -18,3 +18,16 @@ def login():
             flash('Invalid username or password')
 
     return render_template('auth/login.html', login_form=login_form)
+
+@auth.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('auth.login'))
+        title = "New Account"
+    return render_template('auth/register.html', registration_form=form)    

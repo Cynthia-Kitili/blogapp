@@ -13,7 +13,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-    SUBJECT_PREFIX = 'BLOG'
+    SUBJECT_PREFIX = 'BLOGAPP'
     SENDER_EMAIL = 'nyambucindy0@gmail.com'
 
  # simple mde  configurations

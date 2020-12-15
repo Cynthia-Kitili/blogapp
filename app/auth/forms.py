@@ -4,10 +4,10 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from ..models import User
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Your Email Address',validators=[DataRequired(),Email()])
-    username = StringField('Enter your username',validators = [DataRequired()])
-    password = PasswordField('Password',validators = [DataRequired(), EqualTo('password_confirm',message = 'Passwords must match')])
-    password_confirm = PasswordField('Confirm Passwords',validators = [DataRequired()])
+    email = StringField('Enter Your Email Address:',validators=[DataRequired(),Email()])
+    username = StringField('Enter your username:',validators = [DataRequired()])
+    password = PasswordField('Enter Password:',validators = [DataRequired(), EqualTo('password_confirm',message = 'Passwords must match')])
+    password_confirm = PasswordField('Confirm Passwords Match',validators = [DataRequired()])
     submit = SubmitField('Sign Up')
 
     def validate_email(self,data_field):
@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken.Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',validators=[DataRequired()])
-    password = PasswordField('Password',validators=[DataRequired()])
+    email = StringField('Enter Email:',validators=[DataRequired()])
+    password = PasswordField('Enter Password:',validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')            

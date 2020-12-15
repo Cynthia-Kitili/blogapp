@@ -6,9 +6,9 @@ from flask_login import current_user
 from app.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=2,max=20)])
-    email = StringField('Email',validators=[DataRequired()])
-    password = PasswordField('Password',validators=[DataRequired()],)
+    username = StringField('Enter Username:',validators=[DataRequired(), Length(min=2,max=20)])
+    email = StringField('Enter Email:',validators=[DataRequired()])
+    password = PasswordField('Enter Password:',validators=[DataRequired()],)
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
@@ -23,16 +23,16 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken.Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',validators=[DataRequired()])
-    password = PasswordField('Password',validators=[DataRequired()])
+    email = StringField('Enter Email:',validators=[DataRequired()])
+    password = PasswordField('Enter Password:',validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=2,max=20)])
-    email = StringField('Email',validators=[DataRequired()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    username = StringField('Enter Username:',validators=[DataRequired(), Length(min=2,max=20)])
+    email = StringField('Enter Email:',validators=[DataRequired()])
+    picture = FileField('Update Profile Picture:', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -49,8 +49,8 @@ class UpdateAccountForm(FlaskForm):
 
 
 class RequestResetForm(FlaskForm):
-    email = StringField('Email',validators=[DataRequired(), Email()])
-    submit = SubmitField('Request Password Reset')
+    email = StringField('Enter Email',validators=[DataRequired(), Email()])
+    submit = SubmitField('Submit')
 
     def validate_email(self, email):
             user = User.query.filter_by(email=email.data).first()
@@ -58,6 +58,6 @@ class RequestResetForm(FlaskForm):
                 raise ValidationError('Their is no account with that email you must register first.')
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password',validators=[DataRequired()],)
+    password = PasswordField('Enter Password',validators=[DataRequired()],)
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')

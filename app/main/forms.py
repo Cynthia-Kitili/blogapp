@@ -5,13 +5,13 @@ from ..models import User
 
 
 class UpdateProfile(FlaskForm):
-    bio = TextAreaField('content', validators=[DataRequired()])
-    submit = SubmitField('Post')
+    bio = TextAreaField('Blog:', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class PitchForm(FlaskForm):
-    content = TextAreaField('Your pitch')
-    submit = SubmitField('post')
+    content = TextAreaField('Blog')
+    submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
-    comment_id = TextAreaField('WRITE COMMENT')
-    submit = SubmitField('SUBMIT')    
+    comment_id = TextAreaField('Comment On Blog:',validators=[Required()])
+    submit = SubmitField('Comment:')  

@@ -15,10 +15,36 @@ def new_post():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post have been created!', 'success')
+        flash('Post Created Successfully!', 'success')
         return redirect(url_for('main.home')) 
     return render_template('create_post.html', title='New Post',form=form, legend='New Post')
 
+# @posts.route('/post/<int:post_id>', methods = ['POST','GET'])
+# @login_required
+# def comment(post_id):
+#     form = CommentForm()
+#     post = Post.query.get(post_id)
+#     all_comments = Comment.query.filter_by(post_id = post_id).all()
+#     if form.validate_on_submit():
+#         comment = form.comment.data 
+#         post_id = post_id
+#         user_id = current_user._get_current_object().id
+#         new_comment = Comment(comment = comment,user_id = user_id,post_id = pitch_id)
+#         new_comment.save_c()
+#         return redirect(url_for('.comment', post_id = post_id))
+#     return render_template('comment.html', form =form, post = post,all_comments=all_comments)    
+
+@posts.route('/comment/new/<int:id>', methods=['GET', 'POST'])
+@login_required
+def newComment(id):
+    post = post.query.filter_by(id = id).all()
+    postComments = Comment.query.filter_by(post_id=id).all()
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        comment = comment_form.comment.data
+        new_comment = Comment(post_id=id, comment=comment, user=current_user)
+        new_comment.saveComment()
+    return render_template('comment.html', post=post, post_comments=postComments, comment_form=comment_form)
 #creating a post function 
 @posts.route("/post/<int:post_id>")
 def post(post_id):
@@ -53,5 +79,5 @@ def delete_post(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
+    flash('Post Deleted Succesfully!' "success")
     return redirect(url_for('main.home')) 

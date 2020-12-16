@@ -16,11 +16,16 @@
       <ul class="nav navbar-nav navbar-right" id="mySidenav">
         {% if current_user.is_authenticated %}
         <li style="font-size:20px;color:white" id="home"><a href="/">HOME</a></li>
+        <li>
+          <a  href="{{url_for('main.subscriber',uname=current_user.username)}}">SUBSCRIBE</a>
+        </li>
         <li id="profile"><a href="{{url_for('main.profile',uname=current_user.username)}}">PROFILE</a></li>
         <li id="sign-out"><a href="{{url_for('auth.logout')}}">SIGN OUT</a></li>
         {% else %}
         <li style="font-size:20px;color:white" id="home"><a href="/">HOME</a></li>
         <li id="sign-in"><a href="{{url_for('auth.login')}}">SIGN IN</a></li>
+        
+
         {%endif%}
       </ul>
     </div>

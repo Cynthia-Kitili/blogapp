@@ -4,11 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_bootstrap import Bootstrap
 # from flaskext.mail import Mail
 from app.config import config_options
 
 
-
+bootstrap = Bootstrap()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -24,6 +25,7 @@ def create_app(name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    bootstrap.init_app(app)
 
     from app.users.views import users
     from app.posts.views import posts

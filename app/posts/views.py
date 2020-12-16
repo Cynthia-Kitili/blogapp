@@ -1,10 +1,17 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import current_user, login_required
 from app import db
+from ..models import Comment
 from app.models import Post
 from app.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
+
+# @posts.route('/posts/allposts', methods=['GET', 'POST'])
+# @login_required
+# def allBlogs():
+#     posts = Blog.getallBlogs()
+#     return render_template('home.html', posts=posts)
 
 #creating new post route
 @posts.route("/post/new", methods=['GET', 'POST'])
@@ -15,41 +22,39 @@ def new_post():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Post Created Successfully!', 'success')
+        flash('Post Has Been Created Successfully!', 'success')
         return redirect(url_for('main.home')) 
     return render_template('create_post.html', title='New Post',form=form, legend='New Post')
 
-# @posts.route('/post/<int:post_id>', methods = ['POST','GET'])
-# @login_required
-# def comment(post_id):
-#     form = CommentForm()
-#     post = Post.query.get(post_id)
-#     all_comments = Comment.query.filter_by(post_id = post_id).all()
-#     if form.validate_on_submit():
-#         comment = form.comment.data 
-#         post_id = post_id
-#         user_id = current_user._get_current_object().id
-#         new_comment = Comment(comment = comment,user_id = user_id,post_id = pitch_id)
-#         new_comment.save_c()
-#         return redirect(url_for('.comment', post_id = post_id))
-#     return render_template('comment.html', form =form, post = post,all_comments=all_comments)    
 
-@posts.route('/comment/new/<int:id>', methods=['GET', 'POST'])
-@login_required
-def newComment(id):
-    post = post.query.filter_by(id = id).all()
-    postComments = Comment.query.filter_by(post_id=id).all()
-    comment_form = CommentForm()
-    if comment_form.validate_on_submit():
-        comment = comment_form.comment.data
-        new_comment = Comment(post_id=id, comment=comment, user=current_user)
-        new_comment.saveComment()
-    return render_template('comment.html', post=post, post_comments=postComments, comment_form=comment_form)
+# @posts.route('/comment/new/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def newComment(id):
+#     posts = Post.query.filter_by(id = id).all()
+#     postComments = Comment.query.filter_by(post_id=id).all()
+#     comment_form = CommentForm()
+#     if comment_form.validate_on_submit():
+#         comment = comment_form.comment.data
+#         new_comment = comment(post_id=id, comment=comment, user=current_user)
+#         new_comment.saveComment()
+#         db.session.commit()
+#     return render_template('comment.html', posts=posts, post_comments=postComments, comment_form=comment_form)
+    
+
 #creating a post function 
 @posts.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
+
+# @posts.route('/delete/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def deleteComment(id):
+#     comment =Comment.query.get_or_404(id)
+#     db.session.delete(comment)
+#     db.session.commit()
+#     flash('comment succesfully deleted')
+#     return redirect (url_for('posts.allBlogs'))    
 
 #updating a post function
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])

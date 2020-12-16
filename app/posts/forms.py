@@ -6,3 +6,5 @@ class PostForm(FlaskForm):
     title = StringField('Title:', validators=[DataRequired()])
     content = TextAreaField('Blog:', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+    

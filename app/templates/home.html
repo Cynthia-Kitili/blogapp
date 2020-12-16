@@ -1,5 +1,33 @@
 {% extends "layout.html" %}
+
+<!-- {% for quote in getquotes %}
+<div class="card card-image">
+  <div class="text-white text-center unique-color py-5 px-4">
+      <div class="py-5">
+          <h2 class="card-title h2 my-4 py-2">{{quote.author}}</h2>
+          <p class="mb-4 pb-2 px-md-5 mx-md-5">{{quote.quote}}</p>
+{%endfor%}           -->
 {% block content %}
+{% for quote in getquotes %}
+<!-- <div class="container-fluid" style="font-size: 20px; font-family: 'Merienda', cursive;  padding-top: 40px;">
+
+    <div> -->
+        <!-- <div class="card card-image">
+            <div class="text-white text-center unique-color py-5 px-4">
+                <div class="py-5"> -->
+                    <h2 class="card-title h2 my-4 py-2">{{quote.author}}</h2>
+                    <p class="mb-4 pb-2 px-md-5 mx-md-5">{{quote.quote}}</p>
+
+                <!-- </div>
+            </div>
+        </div>
+    </div>
+    
+        </div>
+
+    </footer>
+</div> -->
+{% endfor %}
     {% for post in posts.items %}
     <article class="card" class="container-fluid" class="media content-section">
       <!-- <img class="rounded-circle article-img" src="{{url_for('static', filename='profile_pics/' + post.author.image_file) }}"> -->
@@ -11,20 +39,12 @@
               Writer:<a class="mr-2" href="{{url_for('users.user_posts', username=post.author.username)}}">{{ post.author.username }}</a><br>
 
               <small class="text-muted">Date Posted:{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+          
             </div>
+            <div class="col-md-4">
+              <li class="list-inline-item pr-2"><a href="{{url_for('main.newComment', id=post.id)}}"
+                      class="white-text">Comment</a>
          </article>
-    {% endfor %}
-    <!-- {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %} -->
-      <!-- {% if page_num %}
-        {% if posts.page == page_num %}
-          <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-          {% else %}
-          <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-          {% endif %}
-      {% else %}
-       ...
-    {% endif %} -->
-    
     {% endfor %}
 {% endblock content %}
 
